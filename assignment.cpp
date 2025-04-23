@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <chrono>
 #include <memory>
+#include <map>
+
 
 using namespace std;
 using namespace chrono;
@@ -224,42 +226,47 @@ int countReviews(ReviewNode* head) {
 
 // ---------------- Filter Reviews ----------------
 
-void filterReviews(ReviewNode** reviewHeadRef, TransactionNode* transactionHead) {
+void filterReviews(ReviewNode** reviewHeadRef, TransactionNode* transactionHead, bool debug = false) {
     unordered_map<string, int> transactionCounts;
+
+    // Step 1: Count number of transactions per customer
     while (transactionHead) {
         transactionCounts[transactionHead->data.customerID]++;
         transactionHead = transactionHead->next;
     }
 
     unordered_map<string, int> reviewCounts;
-    unordered_map<string, int> skipCounts;
 
-    ReviewNode* current = *reviewHeadRef;
-    ReviewNode* prev = nullptr;
+    // Step 2: Use a dummy node for easier head deletion
+    ReviewNode dummy;
+    dummy.link = *reviewHeadRef;
+    ReviewNode* prev = &dummy;
+    ReviewNode* current = dummy.link;
 
     while (current) {
         string cid = current->customer_id;
-        reviewCounts[cid]++;
+        int allowed = transactionCounts.count(cid) ? transactionCounts[cid] : 0;
 
-        if (reviewCounts[cid] > transactionCounts[cid]) {
-            skipCounts[cid]++;
-            if (skipCounts[cid] % 2 == 1) {
-                ReviewNode* toDelete = current;
-                if (!prev) {
-                    *reviewHeadRef = current->link;
-                    current = *reviewHeadRef;
-                } else {
-                    prev->link = current->link;
-                    current = prev->link;
-                }
-                delete toDelete;
-                continue;
+        if (reviewCounts[cid] < allowed) {
+            // Keep this review
+            reviewCounts[cid]++;
+            prev = current;
+            current = current->link;
+        } else {
+            // Delete the review
+            if (debug) {
+                cout << "Deleting extra review by customer: " << cid << endl;
             }
-        }
 
-        prev = current;
-        current = current->link;
+            ReviewNode* toDelete = current;
+            prev->link = current->link;
+            current = current->link;
+            delete toDelete;
+        }
     }
+
+    // Update head reference after filtering
+    *reviewHeadRef = dummy.link;
 }
 
 // ---------------- Save Reviews to CSV ----------------
@@ -284,90 +291,47 @@ void saveReviewsToCSV(ReviewNode* head, const string& filename) {
     cout << "\nFiltered reviews saved to '" << filename << "'" << endl;
 }
 
-
-// int main() {
-//     // Read transactions
-//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-//     if (!transactionHead) {
-//         cout << "Failed to read transaction file." << endl;
-//         return 1;
-//     }
-
-//     // Read reviews
-//     FILE* file = fopen("reviews_cleaned.csv", "r");
-//     if (!file) {
-//         cout << "Failed to open review file." << endl;
-//         return 1;
-//     }
-
-//     ReviewNode* reviewHead = NULL;
-//     char line[512];
-
-//     fgets(line, sizeof(line), file); // Skip header
-
-//     while (fgets(line, sizeof(line), file)) {
-//         char* product_id = strtok(line, ",");
-//         char* customer_id = strtok(NULL, ",");
-//         char* rating_str = strtok(NULL, ",");
-//         char* review = strtok(NULL, "\n");
-
-//         if (product_id && customer_id && rating_str && review) {
-//             int rating = atof(rating_str);
-//             ReviewNode* new_node = createReviewNode(product_id, customer_id, rating, review);
-//             appendReviewNode(&reviewHead, new_node);
-//         }
-//     }
-
-//     fclose(file);
-
-//     // Filter reviews
-//     filterReviews(&reviewHead, transactionHead);
-
-//     // Display & Save
-//     cout << "\n=== Filtered Reviews ===\n" << endl;
-//     displayReviews(reviewHead);
-//     cout << "Total Valid Reviews: " << countReviews(reviewHead) << endl;
-
-//     saveReviewsToCSV(reviewHead, "filtered_reviews.csv");
-
-//     return 0;
-// }
-
-
-// ---------------- Main ----------------
-
-int main() {
-    TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-    if (!transactionHead) return 1;
-
-    auto start = high_resolution_clock::now();
-
-    // === SORTING METHOD ===
-    // Uncomment one of the following lines to sort transactions
-    transactionHead = bubbleSort(transactionHead);
-    // transactionHead = selectionSort(transactionHead);
-    // transactionHead = insertionSort(transactionHead);
-    // transactionHead = mergeSort(transactionHead);
-
-    // === DISPLAY SORTED TRANSACTIONS ===
-    cout << "\n=== SORTED TRANSACTIONS ===\n";
-    displayTransactions(transactionHead);
-
-    // === COUNT TOTAL TRANSACTIONS ===
-    cout << "\n=== TRANSACTIONS ===\n";
-    int totalTransactions = 0;
-    TransactionNode* current = transactionHead;
-    while (current) {
-        totalTransactions++;
-        current = current->next;
+// Clean a word (remove punctuation, lowercase)
+string cleanWord(const string& word) {
+    string cleaned;
+    for (char c : word) {
+        if (isalnum(c)) cleaned += tolower(c);
     }
-    cout << "Total Transactions: " << totalTransactions << "\n";
+    return cleaned;
+}
 
-    // === RUNTIME ===
-    auto end = high_resolution_clock::now();
-    cout << "Sorting Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+// Display word frequencies in 1-star reviews sorted in descending order
+void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
+    unordered_map<string, int> wordFreq;
 
-    return 0;
+    while (head) {
+        if (head->rating == 1) {
+            stringstream ss(head->review);
+            string word;
+            while (ss >> word) {
+                word = cleanWord(word);
+                if (!word.empty()) wordFreq[word]++;
+            }
+        }
+        head = head->link;
+    }
+
+    if (wordFreq.empty()) {
+        cout << "No 1-star reviews found." << endl;
+    } else {
+        // Create a multimap to sort words by frequency in descending order
+        multimap<int, string, greater<int>> sortedWords;
+
+        // Insert words into the multimap with frequency as the key
+        for (const auto& [word, count] : wordFreq) {
+            sortedWords.insert({count, word});
+        }
+
+        cout << "\nWord frequencies in 1-star reviews (sorted by frequency):" << endl;
+        for (const auto& [count, word] : sortedWords) {
+            cout << word << ": " << count << endl;
+        }
+    }
 }
 
 
@@ -376,233 +340,48 @@ int main() {
 
 
 
+// // Q1 Main
+// int main() {
+//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+//     if (!transactionHead) return 1;
 
+//     auto start = high_resolution_clock::now();
 
+//     // === SORTING METHOD ===
+//     // Uncomment one of the following lines to sort transactions
+//     transactionHead = bubbleSort(transactionHead);
+//     // transactionHead = selectionSort(transactionHead);
+//     // transactionHead = insertionSort(transactionHead);
+//     // transactionHead = mergeSort(transactionHead);
 
+//     // === DISPLAY SORTED TRANSACTIONS ===
+//     cout << "\n=== SORTED TRANSACTIONS ===\n";
+//     displayTransactions(transactionHead);
 
-
-
-
-
-
-
-
-
-
-// #include <iostream>
-// #include <fstream>
-// #include <sstream>
-// #include <string>
-// #include <unordered_set>
-// #include <unordered_map>
-// #include <cstring>
-// #include <cstdlib>
-
-// using namespace std;
-
-// // ------------------------------------------
-// // Transaction Node and Logic
-// // ------------------------------------------
-
-// struct Record {
-//     string customerID;
-//     string product;
-//     string category;
-//     double price;
-//     string date;
-//     string paymentMethod;
-
-//     int dateToInt() const {
-//         int month, day, year;
-//         sscanf(date.c_str(), "%d/%d/%d", &day, &month, &year);
-//         return year * 10000 + month * 100 + day;
+//     // === COUNT TOTAL TRANSACTIONS ===
+//     cout << "\n=== TRANSACTIONS ===\n";
+//     int totalTransactions = 0;
+//     TransactionNode* current = transactionHead;
+//     while (current) {
+//         totalTransactions++;
+//         current = current->next;
 //     }
-// };
+//     cout << "Total Transactions: " << totalTransactions << "\n";
 
-// struct TransactionNode {
-//     Record data;
-//     TransactionNode* next;
-//     TransactionNode(Record record) : data(record), next(nullptr) {}
-// };
+//     // === RUNTIME ===
+//     auto end = high_resolution_clock::now();
+//     cout << "Sorting Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
 
-// TransactionNode* createTransactionNode(const Record& record) {
-//     return new TransactionNode(record);
+//     return 0;
 // }
 
-// void appendTransactionNode(TransactionNode*& head, TransactionNode* newNode) {
-//     if (!head) {
-//         head = newNode;
-//     } else {
-//         TransactionNode* current = head;
-//         while (current->next) {
-//             current = current->next;
-//         }
-//         current->next = newNode;
-//     }
-// }
 
-// TransactionNode* readTransactionCSV(const string& filename) {
-//     ifstream file(filename);
-//     string line;
-//     TransactionNode* head = nullptr;
 
-//     if (!file.is_open()) {
-//         cerr << "Error: Could not open transaction file." << endl;
-//         return nullptr;
-//     }
 
-//     getline(file, line); // Skip header
 
-//     while (getline(file, line)) {
-//         stringstream ss(line);
-//         string customerID, product, category, priceStr, date, paymentMethod;
-//         getline(ss, customerID, ',');
-//         getline(ss, product, ',');
-//         getline(ss, category, ',');
-//         getline(ss, priceStr, ',');
-//         getline(ss, date, ',');
-//         getline(ss, paymentMethod, ',');
 
-//         double price = stod(priceStr);
 
-//         Record record = {customerID, product, category, price, date, paymentMethod};
-//         TransactionNode* newNode = createTransactionNode(record);
-//         appendTransactionNode(head, newNode);
-//     }
-
-//     file.close();
-//     return head;
-// }
-
-// // ------------------------------------------
-// // Review Node and Logic (C-style)
-// // ------------------------------------------
-
-// struct ReviewNode {
-//     char product_id[50];
-//     char customer_id[50];
-//     int rating;
-//     char review[200];
-//     ReviewNode* link;
-// };
-
-// ReviewNode* createReviewNode(char product_id[], char customer_id[], int rating, char review[]) {
-//     ReviewNode* new_node = (ReviewNode*)malloc(sizeof(ReviewNode));
-//     strcpy(new_node->product_id, product_id);
-//     strcpy(new_node->customer_id, customer_id);
-//     new_node->rating = rating;
-//     strcpy(new_node->review, review);
-//     new_node->link = NULL;
-//     return new_node;
-// }
-
-// void appendReviewNode(ReviewNode** head_ref, ReviewNode* new_node) {
-//     if (*head_ref == NULL) {
-//         *head_ref = new_node;
-//         return;
-//     }
-//     ReviewNode* current = *head_ref;
-//     while (current->link != NULL) {
-//         current = current->link;
-//     }
-//     current->link = new_node;
-// }
-
-// void displayReviews(ReviewNode* head) {
-//     ReviewNode* current = head;
-//     while (current != NULL) {
-//         printf("Product ID: %s\n", current->product_id);
-//         printf("Customer ID: %s\n", current->customer_id);
-//         printf("Rating: %d\n", current->rating);
-//         printf("Review: %s\n\n", current->review);
-//         current = current->link;
-//     }
-// }
-
-// int countReviews(ReviewNode* head) {
-//     int count = 0;
-//     ReviewNode* current = head;
-//     while (current != NULL) {
-//         count++;
-//         current = current->link;
-//     }
-//     return count;
-// }
-
-// // ------------------------------------------
-// // Filter and Save Logic
-// // ------------------------------------------
-
-// void filterReviews(ReviewNode** reviewHeadRef, TransactionNode* transactionHead) {
-//     unordered_map<string, int> transactionCounts;
-
-//     // Count transactions per customer
-//     TransactionNode* tx = transactionHead;
-//     while (tx != nullptr) {
-//         transactionCounts[tx->data.customerID]++;
-//         tx = tx->next;
-//     }
-
-//     unordered_map<string, int> reviewCounts;
-//     unordered_map<string, int> skipCounts;
-
-//     ReviewNode* current = *reviewHeadRef;
-//     ReviewNode* prev = nullptr;
-
-//     while (current != nullptr) {
-//         string customerID = current->customer_id;
-//         reviewCounts[customerID]++;
-
-//         int allowedReviews = transactionCounts[customerID];
-
-//         if (reviewCounts[customerID] > allowedReviews) {
-//             // Delete every alternate excess review
-//             skipCounts[customerID]++;
-//             if (skipCounts[customerID] % 2 == 1) {
-//                 ReviewNode* toDelete = current;
-//                 if (prev == nullptr) {
-//                     *reviewHeadRef = current->link;
-//                     current = *reviewHeadRef;
-//                 } else {
-//                     prev->link = current->link;
-//                     current = prev->link;
-//                 }
-//                 free(toDelete);
-//                 continue;
-//             }
-//         }
-
-//         prev = current;
-//         current = current->link;
-//     }
-// }
-
-// void saveReviewsToCSV(ReviewNode* head, const string& filename) {
-//     ofstream outFile(filename);
-//     if (!outFile.is_open()) {
-//         cerr << "Error: Could not open output file." << endl;
-//         return;
-//     }
-
-//     outFile << "product_id,customer_id,rating,review\n";
-
-//     ReviewNode* current = head;
-//     while (current != nullptr) {
-//         outFile << current->product_id << ','
-//                 << current->customer_id << ','
-//                 << current->rating << ','
-//                 << '"' << current->review << '"' << '\n';
-//         current = current->link;
-//     }
-
-//     outFile.close();
-//     cout << "\nFiltered reviews saved to '" << filename << "'" << endl;
-// }
-
-// // ------------------------------------------
-// // Main
-// // ------------------------------------------
-
+// // Q3 Main
 // int main() {
 //     // Read transactions
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
@@ -618,10 +397,10 @@ int main() {
 //         return 1;
 //     }
 
-//     ReviewNode* reviewHead = NULL;
+//     ReviewNode* reviewHead = nullptr;
 //     char line[512];
 
-//     fgets(line, sizeof(line), file); // Skip header
+//     fgets(line, sizeof(line), file); // skip header
 
 //     while (fgets(line, sizeof(line), file)) {
 //         char* product_id = strtok(line, ",");
@@ -639,14 +418,16 @@ int main() {
 //     fclose(file);
 
 //     // Filter reviews
-//     filterReviews(&reviewHead, transactionHead);
+//     filterReviews(&reviewHead, transactionHead, true);
 
-//     // Display & Save
+//     // Display reviews
 //     cout << "\n=== Filtered Reviews ===\n" << endl;
 //     displayReviews(reviewHead);
 //     cout << "Total Valid Reviews: " << countReviews(reviewHead) << endl;
 
-//     saveReviewsToCSV(reviewHead, "filtered_reviews.csv");
+//     // Display word frequencies in 1-star reviews sorted by frequency
+//     displayWordFrequenciesInOneStarReviews(reviewHead);
 
 //     return 0;
 // }
+
