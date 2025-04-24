@@ -334,6 +334,51 @@ void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
     }
 }
 
+void processElectronicsTransactions(TransactionNode* head) {
+    // Step 1: Filter Electronics category
+    TransactionNode* electronicsHead = nullptr;
+    TransactionNode* current = head;
+    while (current) {
+        if (current->data.category == "Electronics") {
+            appendTransactionNode(electronicsHead, createTransactionNode(current->data));
+        }
+        current = current->next;
+    }
+
+    if (!electronicsHead) {
+        cout << "No Electronics category transactions found." << endl;
+        return;
+    }
+
+    // Step 2: Sort using one of the provided algorithms
+    // Replace with any of: bubbleSort, selectionSort, insertionSort, mergeSort
+    electronicsHead = bubbleSort(electronicsHead);
+    // electronicsHead = insertionSort(electronicsHead);
+    // electronicsHead = selectionSort(electronicsHead);
+    // electronicsHead = mergeSort(electronicsHead);
+
+
+    // Step 3: Count total and credit card transactions
+    int total = 0, creditCardCount = 0;
+    current = electronicsHead;
+    while (current) {
+        total++;
+        if (current->data.paymentMethod == "Credit Card")
+            creditCardCount++;
+        current = current->next;
+    }
+
+    // Step 4: Calculate percentage
+    double percentage = (total > 0) ? (static_cast<double>(creditCardCount) / total) * 100.0 : 0;
+
+    // Display result
+    cout << "\nSorted Electronics Transactions:\n";
+    displayTransactions(electronicsHead);
+    cout << "Total Electronics Transactions: " << total << endl;
+    cout << "Paid via Credit Card: " << creditCardCount << endl;
+    cout << "Percentage paid via Credit Card: " << percentage << "%" << endl;
+}
+
 
 
 
@@ -375,6 +420,27 @@ void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
 //     return 0;
 // }
 
+
+
+
+
+// // Q2 MAIN
+// int main() {
+//     TransactionNode* transactions = readTransactionCSV("transactions_cleaned.csv");
+
+//     auto start = high_resolution_clock::now();
+
+
+//     if (transactions) {
+//         processElectronicsTransactions(transactions);
+//     }
+
+//     // === RUNTIME ===
+//     auto end = high_resolution_clock::now();
+//     cout << "Sorting Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+//     return 0;
+// }
 
 
 

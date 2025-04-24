@@ -1,0 +1,411 @@
+Customer ID,Product,Category,Price,Date,Payment Method
+CUST7932,Mouse,Electronics,1209.19,04/10/2022,PayPal
+CUST1271,Mouse,Electronics,719.88,18/02/2022,PayPal
+CUST6148,Smartphone,Electronics,443.26,20/11/2023,Bank Transfer
+CUST7498,Camera,Electronics,1843.15,05/08/2023,Bank Transfer
+CUST9857,Headphones,Electronics,1357.66,01/08/2023,Debit Card
+CUST4261,Monitor,Electronics,265.29,04/02/2022,Credit Card
+CUST1534,Mouse,Electronics,1503.12,26/08/2022,Cash on Delivery
+CUST7225,Tablet,Electronics,412.14,21/04/2022,Debit Card
+CUST3787,Headphones,Electronics,162.01,19/08/2022,Bank Transfer
+CUST1247,Smartwatch,Electronics,1368.18,15/02/2023,Cash on Delivery
+CUST4828,Smartwatch,Electronics,456.28,14/10/2023,Debit Card
+CUST4491,Camera,Electronics,1820.54,01/06/2023,Bank Transfer
+CUST6367,Gaming Console,Electronics,579.55,13/01/2022,PayPal
+CUST5307,Smartphone,Electronics,1321.59,12/01/2023,Bank Transfer
+CUST1783,Smartwatch,Electronics,909.22,24/04/2022,PayPal
+CUST4030,Laptop,Electronics,170.09,31/10/2022,PayPal
+CUST4128,Keyboard,Electronics,417.9,23/06/2023,Credit Card
+CUST8419,Gaming Console,Electronics,714.88,30/07/2022,Credit Card
+CUST9673,Mouse,Electronics,89.53,05/09/2022,Cash on Delivery
+CUST9746,Mouse,Electronics,1897.81,24/07/2022,Bank Transfer
+CUST7839,Tablet,Electronics,817.82,02/08/2023,Bank Transfer
+CUST4217,Mouse,Electronics,99.38,24/11/2023,PayPal
+CUST1240,Gaming Console,Electronics,242.44,18/04/2022,Debit Card
+CUST4583,Keyboard,Electronics,1342.28,18/01/2022,Cash on Delivery
+CUST5485,Camera,Electronics,1077.69,16/01/2023,Debit Card
+CUST6510,Tablet,Electronics,1118.65,10/02/2022,Bank Transfer
+CUST7573,Monitor,Electronics,1959.42,18/08/2022,Credit Card
+CUST3786,Mouse,Electronics,1316.27,28/07/2022,Credit Card
+CUST9570,Smartphone,Electronics,1937.74,31/10/2022,Credit Card
+CUST7502,Laptop,Electronics,892.0,21/07/2023,Cash on Delivery
+CUST4474,Keyboard,Electronics,1689.7,09/04/2022,Credit Card
+CUST3850,Laptop,Electronics,1916.8,22/07/2023,Cash on Delivery
+CUST4109,Tablet,Electronics,999.04,08/04/2022,Credit Card
+CUST6059,Tablet,Electronics,1349.54,02/04/2023,PayPal
+CUST2858,Headphones,Electronics,365.66,26/09/2023,Debit Card
+CUST7652,Laptop,Electronics,1929.21,16/06/2023,Debit Card
+CUST2276,Gaming Console,Electronics,1338.22,21/08/2022,Bank Transfer
+CUST2339,Camera,Electronics,962.86,08/10/2022,PayPal
+CUST3123,Tablet,Electronics,1868.11,10/04/2023,Debit Card
+CUST8793,Mouse,Electronics,260.6,14/11/2022,Cash on Delivery
+CUST2549,Smartphone,Electronics,102.45,13/12/2022,PayPal
+CUST9410,Smartphone,Electronics,226.6,01/01/2022,Bank Transfer
+CUST5154,Smartphone,Electronics,1049.74,06/03/2022,Debit Card
+CUST9635,Laptop,Electronics,938.61,04/02/2022,Credit Card
+CUST4999,Keyboard,Electronics,1678.98,05/09/2023,Cash on Delivery
+CUST2967,Smartphone,Electronics,431.91,06/02/2022,PayPal
+CUST9376,Smartphone,Electronics,1657.32,26/08/2022,Debit Card
+CUST6483,Mouse,Electronics,1648.27,06/04/2022,Debit Card
+CUST9600,Laptop,Electronics,90.48,01/12/2022,PayPal
+CUST5813,Camera,Electronics,1450.63,11/10/2022,PayPal
+CUST1509,Tablet,Electronics,956.39,28/11/2023,Bank Transfer
+CUST1408,Gaming Console,Electronics,1226.21,21/10/2023,PayPal
+CUST3878,Smartphone,Electronics,232.71,29/12/2023,Debit Card
+CUST2901,Headphones,Electronics,1212.91,07/08/2022,PayPal
+CUST8578,Laptop,Electronics,1363.09,06/04/2023,Cash on Delivery
+CUST1884,Gaming Console,Electronics,1599.94,24/11/2022,Credit Card
+CUST6313,Monitor,Electronics,1798.75,26/09/2022,Credit Card
+CUST6211,Monitor,Electronics,1900.62,29/04/2023,PayPal
+CUST3364,Monitor,Electronics,161.28,24/05/2022,PayPal
+CUST2186,Mouse,Electronics,1405.87,17/06/2023,Credit Card
+CUST3074,Laptop,Electronics,1225.47,19/02/2023,PayPal
+CUST1586,Gaming Console,Electronics,1999.46,05/08/2022,Bank Transfer
+CUST5169,Smartphone,Electronics,1942.77,20/12/2023,Credit Card
+CUST2906,Mouse,Electronics,457.82,21/04/2023,Bank Transfer
+CUST6005,Smartwatch,Electronics,1603.31,10/04/2022,Bank Transfer
+CUST9570,Gaming Console,Electronics,950.62,06/11/2022,Cash on Delivery
+CUST2630,Headphones,Electronics,303.13,25/12/2022,Cash on Delivery
+CUST7992,Mouse,Electronics,1737.53,06/07/2022,Debit Card
+CUST6083,Headphones,Electronics,1551.15,19/04/2022,Bank Transfer
+CUST4496,Keyboard,Electronics,403.17,10/08/2023,Cash on Delivery
+CUST9575,Keyboard,Electronics,1271.46,27/11/2022,Cash on Delivery
+CUST1117,Smartphone,Electronics,808.79,24/02/2023,Debit Card
+CUST1004,Mouse,Electronics,293.3,27/07/2023,Debit Card
+CUST6475,Smartwatch,Electronics,1461.42,12/07/2023,Credit Card
+CUST9623,Monitor,Electronics,1835.92,19/06/2023,Cash on Delivery
+CUST1472,Smartwatch,Electronics,1204.41,22/12/2022,PayPal
+CUST7501,Keyboard,Electronics,1170.85,10/10/2022,Debit Card
+CUST5466,Keyboard,Electronics,912.99,18/07/2022,Bank Transfer
+CUST4841,Smartwatch,Electronics,1862.53,30/08/2022,Bank Transfer
+CUST9930,Smartphone,Electronics,31.63,25/08/2022,Bank Transfer
+CUST6177,Gaming Console,Electronics,1905.17,05/07/2022,Bank Transfer
+CUST5595,Mouse,Electronics,1365.18,08/11/2022,Credit Card
+CUST9109,Monitor,Electronics,1537.36,16/01/2023,Credit Card
+CUST5074,Mouse,Electronics,1180.02,14/09/2023,Debit Card
+CUST5686,Gaming Console,Electronics,853.63,22/08/2022,Cash on Delivery
+CUST7858,Laptop,Electronics,523.09,15/10/2023,PayPal
+CUST1963,Laptop,Electronics,628.09,08/01/2022,Cash on Delivery
+CUST3525,Mouse,Electronics,1484.07,22/01/2023,Bank Transfer
+CUST3643,Headphones,Electronics,685.0,15/09/2023,Debit Card
+CUST2388,Gaming Console,Electronics,83.29,23/04/2022,PayPal
+CUST3630,Monitor,Electronics,813.36,29/09/2022,Cash on Delivery
+CUST3299,Smartphone,Electronics,1897.2,12/02/2023,Debit Card
+CUST2171,Camera,Electronics,1835.35,06/04/2023,Debit Card
+CUST9197,Laptop,Electronics,1365.08,25/01/2022,Debit Card
+CUST7768,Laptop,Electronics,1122.09,05/06/2022,Cash on Delivery
+CUST4710,Tablet,Electronics,1021.16,28/04/2022,Cash on Delivery
+CUST2685,Tablet,Electronics,1341.67,12/08/2023,Debit Card
+CUST8906,Gaming Console,Electronics,968.26,14/01/2022,Credit Card
+CUST9651,Gaming Console,Electronics,902.86,16/12/2022,Credit Card
+CUST8978,Keyboard,Electronics,575.93,28/12/2022,PayPal
+CUST2119,Smartwatch,Electronics,470.87,30/10/2023,Cash on Delivery
+CUST1225,Keyboard,Electronics,265.49,29/04/2023,PayPal
+CUST9351,Headphones,Electronics,1758.05,28/10/2022,PayPal
+CUST4480,Smartwatch,Electronics,1511.79,19/05/2022,Debit Card
+CUST5350,Keyboard,Electronics,591.6,09/10/2022,Debit Card
+CUST9959,Headphones,Electronics,1765.99,19/07/2023,Bank Transfer
+CUST5135,Gaming Console,Electronics,1738.1,18/08/2022,Cash on Delivery
+CUST5136,Smartwatch,Electronics,844.59,20/11/2023,Credit Card
+CUST4524,Smartwatch,Electronics,1363.61,23/04/2023,Credit Card
+CUST7203,Gaming Console,Electronics,1860.87,05/03/2022,Debit Card
+CUST4757,Keyboard,Electronics,420.1,27/06/2023,Debit Card
+CUST5197,Laptop,Electronics,1356.95,12/05/2022,Credit Card
+CUST4455,Mouse,Electronics,1284.84,16/11/2023,Cash on Delivery
+CUST3378,Camera,Electronics,407.62,24/09/2022,Credit Card
+CUST1388,Camera,Electronics,1273.18,17/11/2022,PayPal
+CUST3714,Keyboard,Electronics,431.92,26/11/2023,Debit Card
+CUST4691,Mouse,Electronics,1013.17,29/01/2023,PayPal
+CUST4607,Smartwatch,Electronics,751.95,28/12/2022,Cash on Delivery
+CUST7128,Camera,Electronics,960.44,05/04/2023,Cash on Delivery
+CUST5531,Camera,Electronics,1162.26,12/09/2022,Cash on Delivery
+CUST4124,Tablet,Electronics,231.93,12/03/2023,Credit Card
+CUST7932,Laptop,Electronics,1564.33,27/09/2023,PayPal
+CUST1406,Monitor,Electronics,1201.81,02/12/2023,Debit Card
+CUST1500,Tablet,Electronics,776.24,10/03/2023,Bank Transfer
+CUST7245,Monitor,Electronics,1711.33,09/07/2023,PayPal
+CUST9258,Camera,Electronics,1836.18,10/02/2023,Cash on Delivery
+CUST7469,Mouse,Electronics,161.21,26/01/2022,PayPal
+CUST5464,Tablet,Electronics,967.98,25/11/2022,Credit Card
+CUST4913,Gaming Console,Electronics,332.86,27/07/2022,Debit Card
+CUST5560,Tablet,Electronics,1202.73,02/07/2022,PayPal
+CUST6499,Camera,Electronics,379.83,16/04/2023,Bank Transfer
+CUST2393,Smartwatch,Electronics,729.9,19/04/2022,Bank Transfer
+CUST3548,Gaming Console,Electronics,661.74,10/07/2023,PayPal
+CUST5465,Tablet,Electronics,1720.6,09/12/2023,Credit Card
+CUST6408,Monitor,Electronics,863.89,20/05/2023,Debit Card
+CUST9747,Laptop,Electronics,596.57,30/01/2022,Credit Card
+CUST4809,Keyboard,Electronics,823.16,09/03/2022,Cash on Delivery
+CUST4351,Smartphone,Electronics,1970.64,21/03/2023,Cash on Delivery
+CUST2262,Headphones,Electronics,1353.86,09/06/2022,Debit Card
+CUST4308,Mouse,Electronics,1120.12,01/01/2022,PayPal
+CUST9507,Smartwatch,Electronics,12.89,06/08/2022,Bank Transfer
+CUST5107,Monitor,Electronics,139.73,07/05/2023,Bank Transfer
+CUST7473,Mouse,Electronics,473.58,10/01/2023,Bank Transfer
+CUST3639,Tablet,Electronics,1974.19,09/11/2023,Bank Transfer
+CUST7625,Gaming Console,Electronics,284.57,08/12/2022,Debit Card
+CUST2236,Smartphone,Electronics,1850.01,08/06/2023,Debit Card
+CUST8233,Keyboard,Electronics,1069.55,11/11/2023,Bank Transfer
+CUST7780,Headphones,Electronics,1922.33,19/11/2022,Cash on Delivery
+CUST4290,Laptop,Electronics,1689.35,31/07/2023,Debit Card
+CUST9949,Gaming Console,Electronics,753.76,25/03/2023,Debit Card
+CUST6363,Camera,Electronics,1642.31,11/12/2023,Credit Card
+CUST9398,Keyboard,Electronics,1239.75,06/12/2023,Bank Transfer
+CUST4305,Keyboard,Electronics,1443.8,21/08/2022,PayPal
+CUST3194,Mouse,Electronics,298.72,27/03/2023,Bank Transfer
+CUST5711,Gaming Console,Electronics,112.64,20/03/2022,PayPal
+CUST2025,Headphones,Electronics,464.49,01/04/2022,Debit Card
+CUST7508,Tablet,Electronics,1701.17,27/12/2022,Bank Transfer
+CUST8640,Smartwatch,Electronics,1460.52,29/09/2022,Cash on Delivery
+CUST4055,Gaming Console,Electronics,904.35,14/03/2023,Bank Transfer
+CUST1807,Monitor,Electronics,527.52,12/07/2023,Bank Transfer
+CUST7062,Gaming Console,Electronics,760.46,28/04/2023,Debit Card
+CUST5483,Smartphone,Electronics,1679.79,07/08/2022,Debit Card
+CUST5066,Mouse,Electronics,423.28,15/04/2023,Credit Card
+CUST5907,Keyboard,Electronics,235.89,16/05/2022,PayPal
+CUST7398,Camera,Electronics,1023.01,11/11/2023,Credit Card
+CUST5954,Smartphone,Electronics,1390.64,14/05/2023,Bank Transfer
+CUST6063,Mouse,Electronics,713.14,28/11/2022,Debit Card
+CUST7241,Mouse,Electronics,391.27,26/07/2022,PayPal
+CUST8343,Smartwatch,Electronics,1938.18,14/07/2023,Cash on Delivery
+CUST3866,Gaming Console,Electronics,1965.02,22/04/2022,Cash on Delivery
+CUST7154,Tablet,Electronics,439.23,10/08/2022,Bank Transfer
+CUST2813,Mouse,Electronics,1076.14,13/03/2022,PayPal
+CUST8014,Headphones,Electronics,1616.03,12/02/2022,Credit Card
+CUST4206,Monitor,Electronics,215.84,12/10/2022,Credit Card
+CUST8656,Smartwatch,Electronics,1206.99,27/10/2022,Cash on Delivery
+CUST1776,Smartphone,Electronics,1179.42,13/05/2022,Debit Card
+CUST3139,Mouse,Electronics,811.2,16/03/2023,Bank Transfer
+CUST1059,Monitor,Electronics,1480.78,26/12/2023,Cash on Delivery
+CUST2273,Headphones,Electronics,1378.3,30/05/2023,Bank Transfer
+CUST9839,Smartphone,Electronics,689.79,23/11/2022,Cash on Delivery
+CUST6501,Tablet,Electronics,885.31,07/09/2023,Credit Card
+CUST7088,Camera,Electronics,539.05,09/05/2023,Bank Transfer
+CUST1638,Mouse,Electronics,532.62,28/12/2023,Bank Transfer
+CUST2536,Smartphone,Electronics,732.96,05/11/2022,Cash on Delivery
+CUST9685,Gaming Console,Electronics,732.92,21/08/2022,PayPal
+CUST3411,Smartphone,Electronics,283.41,24/09/2022,Cash on Delivery
+CUST9140,Monitor,Electronics,804.45,16/04/2023,Bank Transfer
+CUST5301,Smartwatch,Electronics,396.8,09/09/2022,Debit Card
+CUST8705,Keyboard,Electronics,267.64,25/04/2022,Bank Transfer
+CUST4830,Tablet,Electronics,1922.58,02/07/2023,PayPal
+CUST5591,Tablet,Electronics,536.51,09/08/2023,Bank Transfer
+CUST7752,Smartwatch,Electronics,175.16,13/03/2023,PayPal
+CUST9504,Laptop,Electronics,1154.89,31/08/2023,Credit Card
+CUST4576,Monitor,Electronics,1037.24,30/07/2022,Debit Card
+CUST2560,Gaming Console,Electronics,929.34,02/11/2022,Debit Card
+CUST8487,Headphones,Electronics,1174.51,10/07/2022,Cash on Delivery
+CUST5899,Mouse,Electronics,1048.63,07/03/2022,Cash on Delivery
+CUST5900,Headphones,Electronics,1727.16,31/03/2023,Credit Card
+CUST1531,Smartphone,Electronics,108.7,09/04/2023,Debit Card
+CUST3177,Smartwatch,Electronics,837.49,14/07/2022,Debit Card
+CUST7377,Mouse,Electronics,1341.04,07/04/2023,PayPal
+CUST1223,Camera,Electronics,689.76,09/11/2023,Bank Transfer
+CUST5235,Mouse,Electronics,1772.47,14/09/2022,Cash on Delivery
+CUST4893,Laptop,Electronics,95.99,23/06/2023,Cash on Delivery
+CUST7046,Tablet,Electronics,1561.54,07/11/2022,Cash on Delivery
+CUST8567,Laptop,Electronics,1021.54,04/07/2022,Credit Card
+CUST3940,Gaming Console,Electronics,1312.67,22/03/2023,Bank Transfer
+CUST3218,Laptop,Electronics,87.55,30/10/2023,Bank Transfer
+CUST9573,Tablet,Electronics,626.47,25/11/2022,Credit Card
+CUST2515,Gaming Console,Electronics,1642.3,10/08/2023,Credit Card
+CUST1671,Laptop,Electronics,464.25,07/04/2022,PayPal
+CUST8766,Mouse,Electronics,1608.94,15/09/2023,Credit Card
+CUST6512,Keyboard,Electronics,1513.31,31/03/2023,Debit Card
+CUST2077,Keyboard,Electronics,215.37,07/04/2022,PayPal
+CUST9855,Smartwatch,Electronics,1810.14,29/07/2023,Bank Transfer
+CUST5462,Keyboard,Electronics,726.2,24/10/2023,Cash on Delivery
+CUST9837,Keyboard,Electronics,1326.09,23/11/2022,Debit Card
+CUST6434,Gaming Console,Electronics,1828.39,12/12/2023,PayPal
+CUST1505,Smartphone,Electronics,1853.71,20/02/2022,Bank Transfer
+CUST6982,Monitor,Electronics,681.33,13/02/2023,PayPal
+CUST4003,Keyboard,Electronics,629.6,06/06/2023,Cash on Delivery
+CUST7617,Keyboard,Electronics,1849.71,02/03/2023,PayPal
+CUST5802,Headphones,Electronics,211.01,10/04/2023,Credit Card
+CUST4561,Laptop,Electronics,1850.19,18/05/2023,PayPal
+CUST5711,Smartphone,Electronics,1440.15,12/05/2022,Debit Card
+CUST1969,Tablet,Electronics,138.84,28/08/2023,Debit Card
+CUST7393,Laptop,Electronics,308.65,26/08/2022,Debit Card
+CUST2086,Mouse,Electronics,1230.24,12/12/2022,Credit Card
+CUST7995,Tablet,Electronics,1518.4,20/05/2022,PayPal
+CUST9452,Tablet,Electronics,1593.09,24/02/2022,Debit Card
+CUST2730,Mouse,Electronics,1301.11,15/04/2022,Bank Transfer
+CUST7443,Smartwatch,Electronics,938.76,15/06/2023,PayPal
+CUST5382,Gaming Console,Electronics,539.66,27/03/2023,Cash on Delivery
+CUST6195,Tablet,Electronics,1671.78,20/08/2023,Credit Card
+CUST3602,Smartphone,Electronics,1032.24,20/07/2023,Credit Card
+CUST4752,Smartwatch,Electronics,11.68,08/11/2022,Debit Card
+CUST9680,Tablet,Electronics,1280.51,21/11/2023,Bank Transfer
+CUST4195,Headphones,Electronics,855.62,27/07/2022,Cash on Delivery
+CUST8592,Monitor,Electronics,1088.6,14/09/2022,Credit Card
+CUST1433,Headphones,Electronics,1456.17,21/02/2022,PayPal
+CUST9882,Mouse,Electronics,988.62,23/01/2023,Cash on Delivery
+CUST7489,Mouse,Electronics,540.52,30/04/2022,Cash on Delivery
+CUST7215,Headphones,Electronics,483.41,30/07/2022,PayPal
+CUST3588,Smartphone,Electronics,1400.79,02/01/2022,PayPal
+CUST3102,Tablet,Electronics,1994.87,03/01/2022,Credit Card
+CUST5580,Laptop,Electronics,1098.37,26/03/2022,Debit Card
+CUST6280,Keyboard,Electronics,1059.99,14/05/2023,Credit Card
+CUST1588,Smartwatch,Electronics,317.04,20/06/2022,PayPal
+CUST2548,Tablet,Electronics,1526.46,25/09/2022,Debit Card
+CUST2870,Camera,Electronics,946.36,24/03/2023,Credit Card
+CUST5170,Mouse,Electronics,352.78,02/06/2022,Bank Transfer
+CUST9853,Smartphone,Electronics,1716.49,03/07/2023,Debit Card
+CUST1450,Gaming Console,Electronics,597.58,31/10/2022,Cash on Delivery
+CUST8733,Headphones,Electronics,1236.01,18/08/2023,Credit Card
+CUST1375,Tablet,Electronics,183.01,14/06/2023,PayPal
+CUST6351,Smartphone,Electronics,1000.23,13/11/2023,Bank Transfer
+CUST4227,Gaming Console,Electronics,269.53,04/11/2023,Bank Transfer
+CUST1952,Camera,Electronics,1713.96,22/01/2023,Credit Card
+CUST4760,Laptop,Electronics,498.6,08/12/2023,Cash on Delivery
+CUST8166,Laptop,Electronics,1577.79,19/12/2022,Debit Card
+CUST4429,Tablet,Electronics,1559.03,12/08/2023,Credit Card
+CUST8668,Camera,Electronics,1318.56,06/07/2022,PayPal
+CUST4907,Gaming Console,Electronics,1887.45,27/07/2022,Credit Card
+CUST2737,Smartwatch,Electronics,102.91,03/12/2023,Credit Card
+CUST7025,Keyboard,Electronics,212.85,09/05/2023,Credit Card
+CUST1738,Laptop,Electronics,1724.18,03/05/2022,Debit Card
+CUST8246,Headphones,Electronics,1456.57,05/06/2023,Bank Transfer
+CUST2156,Tablet,Electronics,1169.63,02/12/2023,Debit Card
+CUST6094,Smartwatch,Electronics,24.68,14/10/2023,Credit Card
+CUST2313,Tablet,Electronics,1444.61,12/08/2023,Cash on Delivery
+CUST4282,Smartwatch,Electronics,1801.93,01/10/2023,Cash on Delivery
+CUST5208,Monitor,Electronics,1170.35,19/04/2022,Bank Transfer
+CUST2647,Headphones,Electronics,70.12,15/03/2023,Cash on Delivery
+CUST3296,Keyboard,Electronics,1915.04,17/05/2023,Debit Card
+CUST9922,Keyboard,Electronics,1875.25,04/10/2023,Credit Card
+CUST6585,Gaming Console,Electronics,251.87,13/11/2023,PayPal
+CUST4482,Laptop,Electronics,686.23,27/09/2022,Bank Transfer
+CUST3006,Smartphone,Electronics,1313.5,20/03/2023,PayPal
+CUST4420,Keyboard,Electronics,434.56,03/04/2022,Credit Card
+CUST9861,Keyboard,Electronics,1110.71,11/04/2023,Bank Transfer
+CUST6292,Smartwatch,Electronics,1552.6,13/08/2022,Credit Card
+CUST5995,Camera,Electronics,1201.0,04/01/2023,Bank Transfer
+CUST3011,Smartwatch,Electronics,897.71,24/03/2022,Credit Card
+CUST6613,Tablet,Electronics,1552.39,06/02/2023,Cash on Delivery
+CUST7761,Mouse,Electronics,1249.21,15/03/2022,PayPal
+CUST3729,Gaming Console,Electronics,271.05,05/05/2022,Debit Card
+CUST9108,Smartphone,Electronics,629.71,15/04/2022,Bank Transfer
+CUST1960,Mouse,Electronics,77.54,19/10/2022,Cash on Delivery
+CUST9143,Monitor,Electronics,1340.7,27/10/2023,Debit Card
+CUST6807,Camera,Electronics,1354.92,23/07/2023,PayPal
+CUST9134,Tablet,Electronics,1938.28,13/12/2023,Bank Transfer
+CUST8206,Smartphone,Electronics,1363.42,11/06/2023,Credit Card
+CUST5367,Laptop,Electronics,1640.26,26/11/2022,Bank Transfer
+CUST5872,Smartwatch,Electronics,943.32,20/10/2023,Cash on Delivery
+CUST6851,Laptop,Electronics,425.1,18/08/2022,Debit Card
+CUST9527,Monitor,Electronics,346.73,14/11/2022,Bank Transfer
+CUST1561,Mouse,Electronics,1068.52,18/12/2023,Cash on Delivery
+CUST4095,Laptop,Electronics,807.41,13/12/2023,Bank Transfer
+CUST6205,Camera,Electronics,887.66,17/11/2022,Cash on Delivery
+CUST3162,Mouse,Electronics,1890.77,02/02/2023,Cash on Delivery
+CUST8519,Camera,Electronics,209.5,22/01/2023,Debit Card
+CUST1756,Laptop,Electronics,179.17,09/10/2022,Cash on Delivery
+CUST6589,Smartphone,Electronics,1359.6,26/11/2022,Bank Transfer
+CUST3510,Tablet,Electronics,1941.26,17/03/2022,PayPal
+CUST2643,Monitor,Electronics,1138.85,06/09/2022,Bank Transfer
+CUST3634,Camera,Electronics,171.32,29/07/2023,Debit Card
+CUST7299,Keyboard,Electronics,238.19,17/09/2022,Cash on Delivery
+CUST9064,Tablet,Electronics,1771.16,22/02/2023,Bank Transfer
+CUST6358,Gaming Console,Electronics,1202.33,21/07/2023,Cash on Delivery
+CUST7241,Laptop,Electronics,802.73,22/07/2023,PayPal
+CUST3635,Camera,Electronics,424.25,09/03/2022,Credit Card
+CUST9090,Camera,Electronics,217.05,14/01/2022,PayPal
+CUST2085,Headphones,Electronics,750.29,24/04/2023,PayPal
+CUST8912,Laptop,Electronics,204.94,15/08/2023,Bank Transfer
+CUST9062,Monitor,Electronics,1338.63,26/02/2022,PayPal
+CUST3176,Smartphone,Electronics,1880.69,06/12/2022,Debit Card
+CUST8100,Headphones,Electronics,875.1,09/09/2022,PayPal
+CUST1803,Keyboard,Electronics,1365.74,06/02/2022,PayPal
+CUST8562,Mouse,Electronics,1051.77,07/07/2022,Debit Card
+CUST7580,Keyboard,Electronics,122.83,08/05/2023,Cash on Delivery
+CUST3918,Laptop,Electronics,1475.13,29/12/2022,Cash on Delivery
+CUST2309,Mouse,Electronics,1286.98,28/03/2022,Debit Card
+CUST1938,Headphones,Electronics,1620.67,04/07/2022,Debit Card
+CUST6094,Keyboard,Electronics,1359.22,12/04/2022,PayPal
+CUST7548,Smartwatch,Electronics,362.0,08/01/2023,Credit Card
+CUST8286,Gaming Console,Electronics,35.32,19/08/2023,Debit Card
+CUST3084,Smartphone,Electronics,1707.62,19/06/2023,Debit Card
+CUST4899,Tablet,Electronics,1149.9,23/07/2023,Debit Card
+CUST2474,Headphones,Electronics,233.05,13/07/2022,Credit Card
+CUST1702,Laptop,Electronics,1334.75,10/10/2023,PayPal
+CUST7520,Laptop,Electronics,826.32,15/06/2023,Credit Card
+CUST8609,Tablet,Electronics,1538.54,27/10/2023,Debit Card
+CUST9448,Monitor,Electronics,1034.41,11/09/2023,Cash on Delivery
+CUST1546,Mouse,Electronics,1784.83,10/08/2022,Cash on Delivery
+CUST8057,Monitor,Electronics,734.22,28/09/2023,Cash on Delivery
+CUST5908,Headphones,Electronics,283.44,16/09/2023,Cash on Delivery
+CUST6413,Headphones,Electronics,876.08,25/07/2022,Bank Transfer
+CUST4185,Tablet,Electronics,1045.92,18/09/2022,Credit Card
+CUST6527,Laptop,Electronics,241.05,19/07/2022,Cash on Delivery
+CUST5160,Keyboard,Electronics,1454.51,30/10/2022,Bank Transfer
+CUST4103,Mouse,Electronics,566.65,16/07/2022,Credit Card
+CUST7394,Gaming Console,Electronics,36.82,10/01/2023,Bank Transfer
+CUST4072,Keyboard,Electronics,967.19,19/01/2022,PayPal
+CUST7409,Laptop,Electronics,272.53,20/02/2022,Bank Transfer
+CUST9955,Keyboard,Electronics,1934.96,28/01/2022,Cash on Delivery
+CUST2545,Laptop,Electronics,78.12,21/07/2023,Cash on Delivery
+CUST6257,Monitor,Electronics,1404.5,20/05/2022,PayPal
+CUST5244,Smartwatch,Electronics,1876.83,01/02/2023,Credit Card
+CUST8682,Smartwatch,Electronics,1829.23,28/09/2022,Cash on Delivery
+CUST1142,Tablet,Electronics,339.78,03/08/2023,PayPal
+CUST8312,Monitor,Electronics,805.74,22/03/2023,Credit Card
+CUST8138,Smartwatch,Electronics,868.91,24/03/2022,Bank Transfer
+CUST7789,Mouse,Electronics,790.29,21/04/2023,Debit Card
+CUST9099,Headphones,Electronics,1724.58,06/11/2023,PayPal
+CUST1834,Gaming Console,Electronics,1431.39,29/12/2022,Debit Card
+CUST3113,Camera,Electronics,622.2,22/11/2022,Credit Card
+CUST4858,Keyboard,Electronics,534.93,11/01/2023,Bank Transfer
+CUST2684,Smartphone,Electronics,739.34,15/04/2022,Debit Card
+CUST6198,Camera,Electronics,753.08,18/10/2022,Credit Card
+CUST4939,Mouse,Electronics,770.35,03/09/2023,Credit Card
+CUST5688,Laptop,Electronics,1747.22,17/02/2022,Cash on Delivery
+CUST6300,Camera,Electronics,1744.73,04/10/2023,Cash on Delivery
+CUST3928,Smartphone,Electronics,1467.99,11/11/2023,Cash on Delivery
+CUST1889,Camera,Electronics,557.37,23/01/2022,Cash on Delivery
+CUST7718,Smartphone,Electronics,460.53,05/07/2023,Cash on Delivery
+CUST7450,Smartphone,Electronics,1299.96,23/11/2022,Bank Transfer
+CUST7889,Smartphone,Electronics,1934.82,29/08/2022,Bank Transfer
+CUST3311,Laptop,Electronics,1373.04,07/10/2023,Bank Transfer
+CUST2523,Laptop,Electronics,140.53,10/10/2022,Credit Card
+CUST9943,Mouse,Electronics,1859.5,25/09/2022,Cash on Delivery
+CUST5471,Monitor,Electronics,1927.89,06/04/2022,Bank Transfer
+CUST6644,Smartwatch,Electronics,1073.41,28/11/2023,Cash on Delivery
+CUST7884,Smartwatch,Electronics,530.98,08/04/2022,Bank Transfer
+CUST3728,Gaming Console,Electronics,589.24,27/09/2023,Credit Card
+CUST8853,Keyboard,Electronics,1497.24,08/11/2023,Debit Card
+CUST4634,Camera,Electronics,541.08,17/05/2023,Bank Transfer
+CUST9474,Smartwatch,Electronics,1622.04,02/08/2023,PayPal
+CUST6660,Keyboard,Electronics,1354.98,09/02/2022,Cash on Delivery
+CUST6572,Mouse,Electronics,1892.43,23/03/2023,Bank Transfer
+CUST9058,Tablet,Electronics,357.91,30/05/2023,Bank Transfer
+CUST3711,Smartphone,Electronics,1090.07,08/03/2022,Bank Transfer
+CUST2362,Smartwatch,Electronics,1727.5,28/12/2022,Bank Transfer
+CUST2661,Camera,Electronics,1163.46,15/02/2023,Credit Card
+CUST7237,Tablet,Electronics,1573.64,18/03/2023,Credit Card
+CUST6417,Smartwatch,Electronics,724.46,21/10/2022,Credit Card
+CUST5939,Keyboard,Electronics,17.1,05/03/2023,Credit Card
+CUST6713,Headphones,Electronics,1396.59,04/10/2022,Bank Transfer
+CUST3852,Laptop,Electronics,28.22,01/07/2022,PayPal
+CUST8727,Mouse,Electronics,1641.29,26/12/2023,Bank Transfer
+CUST3772,Laptop,Electronics,1275.54,21/02/2023,Credit Card
+CUST4730,Mouse,Electronics,69.2,20/07/2022,Bank Transfer
+CUST9029,Mouse,Electronics,1630.22,28/04/2022,Debit Card
+CUST1112,Camera,Electronics,261.82,09/01/2023,Cash on Delivery
+CUST1772,Camera,Electronics,1697.58,19/04/2023,Cash on Delivery
+CUST8759,Smartphone,Electronics,765.06,07/12/2023,Cash on Delivery
+CUST8283,Laptop,Electronics,1872.72,10/09/2023,Credit Card
+CUST9579,Smartwatch,Electronics,808.4,03/11/2023,Bank Transfer
+CUST5774,Camera,Electronics,710.23,13/11/2022,Debit Card
+CUST4438,Smartphone,Electronics,262.67,17/03/2022,Bank Transfer
+CUST2523,Tablet,Electronics,1702.44,17/03/2022,Debit Card
+CUST2073,Smartwatch,Electronics,656.95,31/03/2022,Credit Card
+CUST1902,Gaming Console,Electronics,1757.75,19/05/2023,Cash on Delivery
+CUST3881,Keyboard,Electronics,1002.59,19/05/2023,Cash on Delivery
+CUST9607,Tablet,Electronics,1818.28,04/12/2022,PayPal
+CUST6176,Mouse,Electronics,1732.04,16/06/2023,Cash on Delivery
+CUST3381,Gaming Console,Electronics,949.08,29/11/2023,Cash on Delivery
+CUST5530,Gaming Console,Electronics,777.62,03/02/2023,PayPal
+CUST4296,Mouse,Electronics,704.05,07/09/2023,Debit Card
+CUST1807,Keyboard,Electronics,1658.25,23/08/2023,Credit Card
+CUST3440,Laptop,Electronics,1647.36,29/05/2022,Debit Card
