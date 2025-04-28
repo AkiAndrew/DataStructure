@@ -8,6 +8,8 @@
 #include <chrono>
 #include <memory>
 #include <map>
+#include <cmath>
+#include <iomanip> 
 
 
 using namespace std;
@@ -167,6 +169,91 @@ TransactionNode* mergeSort(TransactionNode* head) {
     return merge(left, right);
 }
 
+// ---------------- Searching algorithms ----------------
+// Linear Search
+void linearSearchByDate(TransactionNode* head, const string& targetDate) {
+    bool found = false;
+    while (head) {
+        if (head->data.date == targetDate) {
+            cout << "Customer ID: " << head->data.customerID << "\n";
+            cout << "Product: " << head->data.product << "\n";
+            cout << "Category: " << head->data.category << "\n";
+            cout << "Price: $" << head->data.price << "\n";
+            cout << "Date: " << head->data.date << "\n";
+            cout << "Payment Method: " << head->data.paymentMethod << "\n\n";
+            found = true;
+        }
+        head = head->next;
+    }
+    if (!found) {
+        cout << "No transactions found on the given date.\n";
+    }
+}
+
+// binary search
+TransactionNode* findMiddle(TransactionNode* head) {
+    if (!head) return nullptr;
+    
+    TransactionNode* slow = head;
+    TransactionNode* fast = head;
+    
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+    
+    return slow;
+}
+
+TransactionNode* binarySearch(TransactionNode* head, const string& targetDate) {
+    if (!head) return nullptr;  // Base case: if the list is empty
+
+    // Find the middle node
+    TransactionNode* middle = findMiddle(head);
+    
+    // If middle node's date matches the target date, return the node
+    if (middle->data.date == targetDate) {
+        return middle;
+    }
+    
+    // If the target date is less than the middle date, search the left sublist
+    if (targetDate < middle->data.date) {
+        return binarySearch(head, targetDate);  // Left half
+    }
+    
+    // If the target date is greater than the middle date, search the right sublist
+    else {
+        return binarySearch(middle->next, targetDate);  // Right half
+    }
+}
+
+void binarySearchByDate(TransactionNode* head, const string& targetDate) {
+    TransactionNode* current = head;
+    bool found = false;
+
+    // Traverse through the linked list and check each transaction
+    while (current) {
+        if (current->data.date == targetDate) {
+            if (!found) {
+                cout << "Transactions found on date " << targetDate << ":\n";
+                found = true;
+            }
+            cout << "Customer ID: " << current->data.customerID << "\n";
+            cout << "Product: " << current->data.product << "\n";
+            cout << "Category: " << current->data.category << "\n";
+            cout << "Price: $" << current->data.price << "\n";
+            cout << "Date: " << current->data.date << "\n";
+            cout << "Payment Method: " << current->data.paymentMethod << "\n\n";
+        }
+        current = current->next;
+    }
+
+    if (!found) {
+        cout << "No transactions found for the given date.\n";
+    }
+}
+
+
 // ---------------- Display Transactions ----------------
 
 void displayTransactions(TransactionNode* head) {
@@ -323,13 +410,13 @@ void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
         multimap<int, string, greater<int>> sortedWords;
 
         // Insert words into the multimap with frequency as the key
-        for (const auto& [word, count] : wordFreq) {
-            sortedWords.insert({count, word});
+        for (const auto& pair : wordFreq) {
+            sortedWords.insert({pair.second, pair.first});
         }
 
         cout << "\nWord frequencies in 1-star reviews (sorted by frequency):" << endl;
-        for (const auto& [count, word] : sortedWords) {
-            cout << word << ": " << count << endl;
+        for (const auto& pair : sortedWords) {
+            cout << pair.second << ": " << pair.first << endl;
         }
     }
 }
@@ -385,6 +472,50 @@ void processElectronicsTransactions(TransactionNode* head) {
 
 
 
+// // SEARCHING MAIN (Linear Search)
+// int main() {
+//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+//     if (!transactionHead) {
+//         cerr << "Failed to load transaction data." << endl;
+//         return 1;
+//     }
+
+//     string targetDate;
+//     cout << "Enter date to search (format DD/MM/YYYY): ";
+//     getline(cin, targetDate);
+
+//     auto start = high_resolution_clock::now();
+//     linearSearchByDate(transactionHead, targetDate);
+//     auto end = high_resolution_clock::now();
+
+//     cout << "\nLinear Search Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+//     return 0;
+// }
+
+// // SEARCHING MAIN (BINARY)
+// int main() {
+//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+//     if (!transactionHead) {
+//         cerr << "Failed to load transaction data." << endl;
+//         return 1;
+//     }
+
+//     string targetDate;
+//     cout << "Enter date to search (format DD/MM/YYYY): ";
+//     getline(cin, targetDate);
+
+//     auto start = high_resolution_clock::now();
+//     binarySearchByDate(transactionHead, targetDate);
+//     auto end = high_resolution_clock::now();
+
+//     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+//     return 0;
+// }
+
+
+
 // // Q1 Main
 // int main() {
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
@@ -421,6 +552,37 @@ void processElectronicsTransactions(TransactionNode* head) {
 // }
 
 
+
+// // Q1 Main
+// int main() {
+//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+//     if (!transactionHead) return 1;
+
+//     transactionHead = bubbleSort(transactionHead);
+
+
+//     // === DISPLAY SORTED TRANSACTIONS ===
+//     cout << "\n=== SORTED TRANSACTIONS ===\n";
+//     displayTransactions(transactionHead);
+
+//     // === COUNT TOTAL TRANSACTIONS ===
+//     cout << "\n=== TRANSACTIONS ===\n";
+//     int totalTransactions = 0;
+//     TransactionNode* current = transactionHead;
+//     while (current) {
+//         totalTransactions++;
+//         current = current->next;
+//     }
+//     cout << "Total Transactions: " << totalTransactions << "\n";
+
+
+
+
+
+
+
+//     return 0;
+// }
 
 
 
