@@ -317,69 +317,103 @@ void jumpSearchByDate(TransactionNode* head, const string& targetDate) {
 }
 
 // interpolation search 
-// int dateToInt(const string& date) {
-//     // Assume date format is DD/MM/YYYY
-//     int day = stoi(date.substr(0, 2));
-//     int month = stoi(date.substr(3, 2));
-//     int year = stoi(date.substr(6, 4));
-//     return year * 10000 + month * 100 + day; // YYYYMMDD format
-// }
-
 void interpolationSearchByDate(TransactionNode* head, const string& targetDate) {
     if (!head) {
-        cout << "No transactions found for the given date.\n";
+        cout << "No transactions found.\n";
         return;
     }
 
-    // Count total number of nodes
+    bool found = false;
+    cout << "Transactions found on date " << targetDate << ":\n";
+
+    // Count total number of nodes and find min/max dates
     int n = 0;
     TransactionNode* temp = head;
+    string minDate = temp->data.date;
+    string maxDate = temp->data.date;
+    
     while (temp) {
         n++;
+        if (dateToInt(temp->data.date) < dateToInt(minDate)) {
+            minDate = temp->data.date;
+        }
+        if (dateToInt(temp->data.date) > dateToInt(maxDate)) {
+            maxDate = temp->data.date;
+        }
         temp = temp->next;
     }
 
-    int low = 0;
-    int high = n - 1;
-    TransactionNode* lowNode = head;
-    TransactionNode* highNode = head;
-
-    while (low <= high) {
-        int pos = low + ((dateToInt(targetDate) - dateToInt(lowNode->data.date)) * (high - low)) /
-                  (dateToInt(highNode->data.date) - dateToInt(lowNode->data.date));
-
-        if (pos < 0 || pos >= n) {
-            break; // out of bounds, return not found
-        }
-
-        // Traverse to the position pos
-        TransactionNode* current = head;
-        for (int i = 0; i < pos; i++) {
-            current = current->next;
-        }
-
-        // Check if we found the target
-        if (current->data.date == targetDate) {
-            cout << "Transactions found on date " << targetDate << ":\n";
-            cout << "Customer ID: " << current->data.customerID << "\n";
-            cout << "Product: " << current->data.product << "\n";
-            cout << "Category: " << current->data.category << "\n";
-            cout << "Price: $" << current->data.price << "\n";
-            cout << "Date: " << current->data.date << "\n";
-            cout << "Payment Method: " << current->data.paymentMethod << "\n\n";
-            return;
-        }
-        // Adjust the bounds
-        if (dateToInt(current->data.date) < dateToInt(targetDate)) {
-            lowNode = current;
-            low = pos + 1;
-        } else {
-            highNode = current;
-            high = pos - 1;
-        }
+    // Check if target date is outside the range
+    if (dateToInt(targetDate) < dateToInt(minDate) || dateToInt(targetDate) > dateToInt(maxDate)) {
+        cout << "No transactions found on date " << targetDate << ".\n";
+        return;
     }
 
-    cout << "No transactions found for the given date.\n";
+    // Apply interpolation search to find an entry with the target date
+    int low = 0;
+    int high = n - 1;
+    int pos;
+    
+    int targetDateInt = dateToInt(targetDate);
+    int minDateInt = dateToInt(minDate);
+    int maxDateInt = dateToInt(maxDate);
+    
+    // Guard against division by zero
+    if (minDateInt == maxDateInt) {
+        pos = 0;  // If all dates are the same, start from the beginning
+    } else {
+        pos = low + ((targetDateInt - minDateInt) * (high - low)) / (maxDateInt - minDateInt);
+    }
+    
+    if (pos < 0) pos = 0;
+    if (pos >= n) pos = n - 1;
+    
+    // Find a transaction with the target date
+    TransactionNode* current = head;
+    for (int i = 0; i < pos; i++) {
+        current = current->next;
+    }
+    
+    // If we didn't hit the target date directly, search linearly from the position
+    while (current && dateToInt(current->data.date) < targetDateInt) {
+        current = current->next;
+    }
+    
+    // Now, print all transactions with the target date
+    while (current && current->data.date == targetDate) {
+        cout << "Customer ID: " << current->data.customerID << "\n";
+        cout << "Product: " << current->data.product << "\n";
+        cout << "Category: " << current->data.category << "\n";
+        cout << "Price: $" << current->data.price << "\n";
+        cout << "Date: " << current->data.date << "\n";
+        cout << "Payment Method: " << current->data.paymentMethod << "\n\n";
+        
+        found = true;
+        current = current->next;
+    }
+    
+    // Start from the beginning to check for earlier occurrences
+    // This is needed because interpolation might position us after some matches
+    current = head;
+    while (current && dateToInt(current->data.date) <= targetDateInt) {
+        if (current->data.date == targetDate) {
+            // Check if we already printed this transaction
+            if (!found) {
+                cout << "Customer ID: " << current->data.customerID << "\n";
+                cout << "Product: " << current->data.product << "\n";
+                cout << "Category: " << current->data.category << "\n";
+                cout << "Price: $" << current->data.price << "\n";
+                cout << "Date: " << current->data.date << "\n";
+                cout << "Payment Method: " << current->data.paymentMethod << "\n\n";
+                found = true;
+            }
+        }
+        current = current->next;
+    }
+    
+    if (!found) {
+        cout << "No transactions found on date " << targetDate << ".\n";
+    }
 }
 
 // ---------------- Display Transactions ----------------
@@ -666,7 +700,7 @@ void processElectronicsTransactions(TransactionNode* head) {
 //     return 0;
 // }
 
-// // SEARCHING MAIN (INTERPOLATION SEARCH)
+// // SEARCHING MAIN (INTERPOLATION)
 // int main() {
 //     // Read the transaction data from the CSV file
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
@@ -688,8 +722,57 @@ void processElectronicsTransactions(TransactionNode* head) {
 
 //     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
 
+//     // Free memory
+//     TransactionNode* current = transactionHead;
+//     while (current) {
+//         TransactionNode* temp = current;
+//         current = current->next;
+//         delete temp;
+//     }
+
 //     return 0;
 // }
+
+// Q1 (SEARCHING MAIN)
+int main() {
+    // Read the transaction data from the CSV file
+    TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+    if (!transactionHead) {
+        cerr << "Failed to load transaction data." << endl;
+        return 1;
+    }
+
+    // Sort the transactions by date before performing the search
+    // bubbleSort(transactionHead);
+    // selectionSort(transactionHead);
+    // mergeSort(transactionHead);
+    // insertionSort(transactionHead);
+
+    string targetDate;
+    cout << "Enter date to search (format DD/MM/YYYY): ";
+    getline(cin, targetDate);
+
+    auto start = high_resolution_clock::now();
+
+    // === SEARCH METHOD ===
+    // jumpSearchByDate(transactionHead, targetDate);
+    // interpolationSearchByDate(transactionHead, targetDate);
+    // linearSearchByDate(transactionHead, targetDate);
+    // binarySearchByDate(transactionHead, targetDate);
+    
+    auto end = high_resolution_clock::now();
+    cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+    // Free memory
+    TransactionNode* current = transactionHead;
+    while (current) {
+        TransactionNode* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    return 0;
+}
 
 // // Q1 Main
 // int main() {
@@ -725,7 +808,6 @@ void processElectronicsTransactions(TransactionNode* head) {
 
 //     return 0;
 // }
-
 
 // // Q2 MAIN
 // int main() {
