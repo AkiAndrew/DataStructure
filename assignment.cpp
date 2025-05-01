@@ -601,10 +601,10 @@ void processElectronicsTransactions(TransactionNode* head) {
 
     // Step 2: Sort using one of the provided algorithms
     // Replace with any of: bubbleSort, selectionSort, insertionSort, mergeSort
-    electronicsHead = bubbleSort(electronicsHead);
+    // electronicsHead = bubbleSort(electronicsHead);
     // electronicsHead = insertionSort(electronicsHead);
     // electronicsHead = selectionSort(electronicsHead);
-    // electronicsHead = mergeSort(electronicsHead);
+    electronicsHead = mergeSort(electronicsHead);
 
 
     // Step 3: Count total and credit card transactions
@@ -628,79 +628,133 @@ void processElectronicsTransactions(TransactionNode* head) {
     cout << "Percentage paid via Credit Card: " << percentage << "%" << endl;
 }
 
+TransactionNode* findMiddle(TransactionNode* start, TransactionNode* end) {
+    if (!start) return nullptr;
+
+    TransactionNode* slow = start;
+    TransactionNode* fast = start;
+
+    while (fast != end && fast->next != end) {
+        slow = slow->next;
+        fast = fast->next->next;
+    }
+
+    return slow;
+}
+
+
+void processElectronicsCreditCardPercentage(TransactionNode* head) {
+    if (!head) {
+        cout << "No transactions found." << endl;
+        return;
+    }
+
+    int totalElectronics = 0;
+    int creditCardElectronics = 0;
+    
+    // First, sort the list by category to optimize search
+    TransactionNode* sortedHead = bubbleSort(head);
+    
+    cout << "\n=== ELECTRONICS CATEGORY PAYMENT ANALYSIS ===\n";
+    
+    // === SEARCH METHOD ===    
+    // // Linear Search
+    // TransactionNode* current = sortedHead;
+    // while (current) {
+    //     if (current->data.category == "Electronics") {
+    //         totalElectronics++;
+    //         if (current->data.paymentMethod == "Credit Card") {
+    //             creditCardElectronics++;
+    //         }
+    //     }
+    //     current = current->next;
+    // }
+    
+    // // Jump Search
+    // // Count total number of nodes
+    // int n = 0;
+    // TransactionNode* counter = sortedHead;
+    // while (counter) {
+    //     n++;
+    //     counter = counter->next;
+    // }
+    
+    // int jumpSize = sqrt(n);
+    // if (jumpSize < 1) jumpSize = 1; // Ensure minimum jump size of 1
+    
+    // // Jump search implementation for linked list
+    // TransactionNode* current = sortedHead;
+    // int processedCount = 0;
+    
+    // while (processedCount < n) {
+    //     // Process current block up to jumpSize nodes
+    //     int blockProcessed = 0;
+        
+    //     while (blockProcessed < jumpSize && current) {
+    //         if (current->data.category == "Electronics") {
+    //             totalElectronics++;
+    //             if (current->data.paymentMethod == "Credit Card") {
+    //                 creditCardElectronics++;
+    //             }
+    //         }
+    //         current = current->next;
+    //         blockProcessed++;
+    //         processedCount++;
+    //     }
+    // }
+    
+    // Binary Search
+    // Binary search to find first Electronics
+    TransactionNode* start = sortedHead;
+    TransactionNode* end = nullptr;
+    TransactionNode* firstElectronics = nullptr;
+
+    while (start != end) {
+        TransactionNode* mid = findMiddle(start, end);
+        if (!mid) break;
+
+        if (mid->data.category == "Electronics") {
+            firstElectronics = mid;
+            end = mid;  // keep searching left
+        } else if (mid->data.category < "Electronics") {
+            start = mid->next;  // move right
+        } else {
+            end = mid;  // move left
+        }
+    }
+
+    if (firstElectronics) {
+        // Traverse forward to count Electronics
+        TransactionNode* current = firstElectronics;
+        while (current && current->data.category == "Electronics") {
+            totalElectronics++;
+            if (current->data.paymentMethod == "Credit Card") {
+                creditCardElectronics++;
+            }
+            current = current->next;
+        }
+    } else {
+        cout << "No Electronics transactions found.\n";
+    }
+
+    // Interpolation Search
+
+    
+    // Calculate percentage
+    double percentage = (totalElectronics > 0) ? 
+                         (static_cast<double>(creditCardElectronics) / totalElectronics) * 100.0 : 0;
+    
+    // Display results
+    cout << "Total Electronics Transactions: " << totalElectronics << endl;
+    cout << "Electronics transactions paid via Credit Card: " << creditCardElectronics << endl;
+    cout << "Percentage of Electronics purchases made using Credit Card: " << fixed << setprecision(2) << percentage << "%" << endl;
+}
 
 
 
 
 
-
-// // SEARCHING MAIN (Linear Search)
-// int main() {
-//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-//     if (!transactionHead) {
-//         cerr << "Failed to load transaction data." << endl;
-//         return 1;
-//     }
-
-//     string targetDate;
-//     cout << "Enter date to search (format DD/MM/YYYY): ";
-//     getline(cin, targetDate);
-
-//     auto start = high_resolution_clock::now();
-//     linearSearchByDate(transactionHead, targetDate);
-//     auto end = high_resolution_clock::now();
-
-//     cout << "\nLinear Search Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
-
-//     return 0;
-// }
-
-// // SEARCHING MAIN (BINARY SEARCH)
-// int main() {
-//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-//     if (!transactionHead) {
-//         cerr << "Failed to load transaction data." << endl;
-//         return 1;
-//     }
-
-//     string targetDate;
-//     cout << "Enter date to search (format DD/MM/YYYY): ";
-//     getline(cin, targetDate);
-
-//     auto start = high_resolution_clock::now();s
-//     binarySearchByDate(transactionHead, targetDate);
-//     auto end = high_resolution_clock::now();
-
-//     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
-
-//     return 0;
-// }
-
-// // SEARCHING MAIN (JUMP SEARCH)
-// int main() {
-//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-//     if (!transactionHead) {
-//         cerr << "Failed to load transaction data." << endl;
-//         return 1;
-//     }
-
-//     // Sort first before Jump Search!
-//     bubbleSort(transactionHead);
-
-//     string targetDate;
-//     cout << "Enter date to search (format DD/MM/YYYY): ";
-//     getline(cin, targetDate);
-
-//     auto start = high_resolution_clock::now();
-//     jumpSearchByDate(transactionHead, targetDate);
-//     auto end = high_resolution_clock::now();
-
-//     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
-
-//     return 0;
-// }
-
-// // SEARCHING MAIN (INTERPOLATION)
+// // Q1 (SEARCHING MAIN)
 // int main() {
 //     // Read the transaction data from the CSV file
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
@@ -709,17 +763,25 @@ void processElectronicsTransactions(TransactionNode* head) {
 //         return 1;
 //     }
 
-//     // Sort the transactions by date before performing the search
-//     bubbleSort(transactionHead);
+//     // === SORT METHOD ===
+//     // bubbleSort(transactionHead);
+//     // selectionSort(transactionHead);
+//     // mergeSort(transactionHead);
+//     insertionSort(transactionHead);
 
 //     string targetDate;
 //     cout << "Enter date to search (format DD/MM/YYYY): ";
 //     getline(cin, targetDate);
 
 //     auto start = high_resolution_clock::now();
-//     interpolationSearchByDate(transactionHead, targetDate);
-//     auto end = high_resolution_clock::now();
 
+//     // === SEARCH METHOD ===
+//     // jumpSearchByDate(transactionHead, targetDate);
+//     interpolationSearchByDate(transactionHead, targetDate);
+//     // linearSearchByDate(transactionHead, targetDate);
+//     // binarySearchByDate(transactionHead, targetDate);
+    
+//     auto end = high_resolution_clock::now();
 //     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
 
 //     // Free memory
@@ -732,47 +794,6 @@ void processElectronicsTransactions(TransactionNode* head) {
 
 //     return 0;
 // }
-
-// Q1 (SEARCHING MAIN)
-int main() {
-    // Read the transaction data from the CSV file
-    TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-    if (!transactionHead) {
-        cerr << "Failed to load transaction data." << endl;
-        return 1;
-    }
-
-    // Sort the transactions by date before performing the search
-    // bubbleSort(transactionHead);
-    // selectionSort(transactionHead);
-    // mergeSort(transactionHead);
-    // insertionSort(transactionHead);
-
-    string targetDate;
-    cout << "Enter date to search (format DD/MM/YYYY): ";
-    getline(cin, targetDate);
-
-    auto start = high_resolution_clock::now();
-
-    // === SEARCH METHOD ===
-    // jumpSearchByDate(transactionHead, targetDate);
-    // interpolationSearchByDate(transactionHead, targetDate);
-    // linearSearchByDate(transactionHead, targetDate);
-    // binarySearchByDate(transactionHead, targetDate);
-    
-    auto end = high_resolution_clock::now();
-    cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
-
-    // Free memory
-    TransactionNode* current = transactionHead;
-    while (current) {
-        TransactionNode* temp = current;
-        current = current->next;
-        delete temp;
-    }
-
-    return 0;
-}
 
 // // Q1 Main
 // int main() {
@@ -809,6 +830,10 @@ int main() {
 //     return 0;
 // }
 
+
+
+
+
 // // Q2 MAIN
 // int main() {
 //     TransactionNode* transactions = readTransactionCSV("transactions_cleaned.csv");
@@ -827,6 +852,31 @@ int main() {
 //     return 0;
 // }
 
+// Q2 MAIN (SEARCHING VERSION)
+int main() {
+    TransactionNode* transactions = readTransactionCSV("transactions_cleaned.csv");
+    if (!transactions) {
+        cerr << "Failed to load transaction data." << endl;
+        return 1;
+    }
+
+    auto start = high_resolution_clock::now();
+    
+    processElectronicsCreditCardPercentage(transactions);
+    
+    auto end = high_resolution_clock::now();
+    cout << "\nExecution Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+
+    // Free memory
+    TransactionNode* current = transactions;
+    while (current) {
+        TransactionNode* temp = current;
+        current = current->next;
+        delete temp;
+    }
+
+    return 0;
+}
 
 
 
