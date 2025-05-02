@@ -335,6 +335,43 @@ int readReviewCSV(const string& filename, Review*& arr) {
     return count;
 }
 
+bool compareReviews(const Review& a, const Review& b) {
+    return a.review < b.review;
+}
+
+void mergeR(Review* arr, int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    Review* L = new Review[n1];
+    Review* R = new Review[n2];
+
+    for (int i = 0; i < n1; ++i) L[i] = arr[left + i];
+    for (int j = 0; j < n2; ++j) R[j] = arr[mid + 1 + j];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (compareReviews(L[i], R[j])) arr[k++] = L[i++];
+        else arr[k++] = R[j++];
+    }
+
+    while (i < n1) arr[k++] = L[i++];
+    while (j < n2) arr[k++] = R[j++];
+
+    delete[] L;
+    delete[] R;
+}
+
+void mergeSortR(Review* arr, int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSortR(arr, left, mid);
+        mergeSortR(arr, mid + 1, right);
+        mergeR(arr, left, mid, right);
+    }
+}
+
+
 void displayTransactions(Record* arr, int size) {
     for (int i = 0; i < size; ++i) {
         cout << "Customer ID: " << arr[i].customerID << "\n";
@@ -528,21 +565,37 @@ int main() {
     int reviewCount = readReviewCSV("reviews_cleaned.csv", reviews);
     if (reviewCount == 0) return 1;
 
-    // Count before filtering
+    // Extract and sort 1-star reviews by review text
+    Review* oneStarReviews = new Review[reviewCount];
+    int oneStarCount = 0;
+    for (int i = 0; i < reviewCount; ++i) {
+        if (reviews[i].rating == 1) {
+            oneStarReviews[oneStarCount++] = reviews[i];
+        }
+    }
+
+    if (oneStarCount > 0) {
+        mergeSortR(oneStarReviews, 0, oneStarCount - 1);
+
+        cout << "\n=== Sorted 1-Star Reviews (by review text) ===\n";
+        for (int i = 0; i < oneStarCount; ++i) {
+            cout << "Customer ID: " << oneStarReviews[i].customer_id << "\n";
+            cout << "Review: " << oneStarReviews[i].review << "\n\n";
+        }
+    } else {
+        cout << "\nNo 1-star reviews to sort.\n";
+    }
+
     cout << "Total Reviews (Raw): " << reviewCount << endl;
 
-    // Filter reviews based on valid transactions
     reviewCount = filterReviews(reviews, reviewCount, transactions, transactionCount);
-
-    // Count after filtering
     cout << "Total Reviews (Filtered): " << reviewCount << endl;
 
-    // Analyze 1-star reviews
     analyzeOneStarReviews(reviews, reviewCount);
 
     delete[] transactions;
     delete[] reviews;
+    delete[] oneStarReviews;
 
     return 0;
 }
-
