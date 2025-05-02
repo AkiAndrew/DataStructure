@@ -618,65 +618,6 @@ void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
     }
 }
 
-void processElectronicsTransactions(TransactionNode* head) {
-    // Step 1: Filter Electronics category
-    TransactionNode* electronicsHead = nullptr;
-    TransactionNode* current = head;
-    while (current) {
-        if (current->data.category == "Electronics") {
-            appendTransactionNode(electronicsHead, createTransactionNode(current->data));
-        }
-        current = current->next;
-    }
-
-    if (!electronicsHead) {
-        cout << "No Electronics category transactions found." << endl;
-        return;
-    }
-
-    // Step 2: Sort using one of the provided algorithms
-    // Replace with any of: bubbleSort, selectionSort, insertionSort, mergeSort
-    // electronicsHead = bubbleSort(electronicsHead);
-    // electronicsHead = insertionSort(electronicsHead);
-    // electronicsHead = selectionSort(electronicsHead);
-    electronicsHead = mergeSort(electronicsHead);
-
-
-    // Step 3: Count total and credit card transactions
-    int total = 0, creditCardCount = 0;
-    current = electronicsHead;
-    while (current) {
-        total++;
-        if (current->data.paymentMethod == "Credit Card")
-            creditCardCount++;
-        current = current->next;
-    }
-
-    // Step 4: Calculate percentage
-    double percentage = (total > 0) ? (static_cast<double>(creditCardCount) / total) * 100.0 : 0;
-
-    // Display result
-    cout << "\nSorted Electronics Transactions:\n";
-    displayTransactions(electronicsHead);
-    cout << "Total Electronics Transactions: " << total << endl;
-    cout << "Paid via Credit Card: " << creditCardCount << endl;
-    cout << "Percentage paid via Credit Card: " << percentage << "%" << endl;
-}
-
-TransactionNode* findMiddle(TransactionNode* start, TransactionNode* end) {
-    if (!start) return nullptr;
-
-    TransactionNode* slow = start;
-    TransactionNode* fast = start;
-
-    while (fast != end && fast->next != end) {
-        slow = slow->next;
-        fast = fast->next->next;
-    }
-
-    return slow;
-}
-
 // Function to get node at position 'pos' in linked list
 TransactionNode* getNodeAtPosition(TransactionNode* head, int pos) {
     TransactionNode* current = head;
@@ -717,53 +658,7 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
     TransactionNode* sortedHead = mergeSort(head);
 
     cout << "\n=== ELECTRONICS CATEGORY PAYMENT ANALYSIS ===\n";
-    
-    // // === SEARCH METHOD ===    
-    // // Linear Search
-    // TransactionNode* current = sortedHead;
-    // while (current) {
-    //     if (current->data.category == "Electronics") {
-    //         totalElectronics++;
-    //         if (current->data.paymentMethod == "Credit Card") {
-    //             creditCardElectronics++;
-    //         }
-    //     }
-    //     current = current->next;
-    // }
-    
-    // // Jump Search
-    // // Count total number of nodes
-    // int n = 0;
-    // TransactionNode* counter = sortedHead;
-    // while (counter) {
-    //     n++;
-    //     counter = counter->next;
-    // }
-    
-    // int jumpSize = sqrt(n);
-    // if (jumpSize < 1) jumpSize = 1; // Ensure minimum jump size of 1
-    
-    // // Jump search implementation for linked list
-    // TransactionNode* current = sortedHead;
-    // int processedCount = 0;
-    
-    // while (processedCount < n) {
-    //     // Process current block up to jumpSize nodes
-    //     int blockProcessed = 0;
-        
-    //     while (blockProcessed < jumpSize && current) {
-    //         if (current->data.category == "Electronics") {
-    //             totalElectronics++;
-    //             if (current->data.paymentMethod == "Credit Card") {
-    //                 creditCardElectronics++;
-    //             }
-    //         }
-    //         current = current->next;
-    //         blockProcessed++;
-    //         processedCount++;
-    //     }
-    // }
-    
+   
     // Binary Search
     // Simply count all Electronics transactions with a single pass through the list
     TransactionNode* current = sortedHead;
@@ -778,18 +673,7 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
         current = current->next;
     }
 
-    // // Interpolation Search
-    // TransactionNode* current = sortedHead;
-    // while (current) {
-    //     if (current->data.category == "Electronics") {
-    //         totalElectronics++;
-    //         if (current->data.paymentMethod == "Credit Card") {
-    //             creditCardElectronics++;
-    //         }
-    //     }
-    //     current = current->next;
-    // }
-    
+
     // Calculate percentage
     double percentage = (totalElectronics > 0) ? 
                          (static_cast<double>(creditCardElectronics) / totalElectronics) * 100.0 : 0;
@@ -804,7 +688,7 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
 
 
 
-// // Q1 (SEARCHING MAIN)
+// // Q1 FULL
 // int main() {
 //     // Read the transaction data from the CSV file
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
@@ -842,7 +726,9 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
 //     return 0;
 // }
 
-// // Q1 Main
+
+
+// // Q1 COMPARE
 // int main() {
 //     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
 //     if (!transactionHead) return 1;
@@ -881,25 +767,9 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
 
 
 
-// // Q2 MAIN
-// int main() {
-//     TransactionNode* transactions = readTransactionCSV("transactions_cleaned.csv");
-
-//     auto start = high_resolution_clock::now();
 
 
-//     if (transactions) {
-//         processElectronicsTransactions(transactions);
-//     }
-
-//     // === RUNTIME ===
-//     auto end = high_resolution_clock::now();
-//     cout << "Sorting Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
-
-//     return 0;
-// }
-
-// // Q2 MAIN (SEARCHING VERSION)
+// // Q2 FULL
 // int main() {
 //     TransactionNode* transactions = readTransactionCSV("transactions_cleaned.csv");
 //     if (!transactions) {
@@ -927,7 +797,7 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
 
 
 
-
+// Q3 FULL
 int main() {
     // Read transaction data
     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
