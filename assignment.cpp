@@ -169,6 +169,7 @@ TransactionNode* mergeSort(TransactionNode* head) {
     return merge(left, right);
 }
 
+
 // ---------------- Searching algorithms ----------------
 // Linear Search
 void linearSearchByDate(TransactionNode* head, const string& targetDate) {
@@ -549,6 +550,40 @@ string cleanWord(const string& word) {
     return cleaned;
 }
 
+ReviewNode* mergeByReviewLength(ReviewNode* a, ReviewNode* b) {
+    if (!a) return b;
+    if (!b) return a;
+
+    if (a->review.length() > b->review.length()) {
+        a->link = mergeByReviewLength(a->link, b);
+        return a;
+    } else {
+        b->link = mergeByReviewLength(a, b->link);
+        return b;
+    }
+}
+
+ReviewNode* mergeSortByReviewLength(ReviewNode* head) {
+    if (!head || !head->link) return head;
+
+    ReviewNode* slow = head;
+    ReviewNode* fast = head->link;
+
+    while (fast && fast->link) {
+        slow = slow->link;
+        fast = fast->link->link;
+    }
+
+    ReviewNode* mid = slow->link;
+    slow->link = nullptr;
+
+    ReviewNode* left = mergeSortByReviewLength(head);
+    ReviewNode* right = mergeSortByReviewLength(mid);
+
+    return mergeByReviewLength(left, right);
+}
+
+
 // Display word frequencies in 1-star reviews sorted in descending order
 void displayWordFrequenciesInOneStarReviews(ReviewNode* head) {
     unordered_map<string, int> wordFreq;
@@ -893,54 +928,97 @@ void processElectronicsCreditCardPercentage(TransactionNode* head) {
 
 
 
+int main() {
+    // Read transaction data
+    TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
+    if (!transactionHead) {
+        cout << "Failed to read transaction file." << endl;
+        return 1;
+    }
 
-// // Q3 Main
-// int main() {
-//     // Read transactions
-//     TransactionNode* transactionHead = readTransactionCSV("transactions_cleaned.csv");
-//     if (!transactionHead) {
-//         cout << "Failed to read transaction file." << endl;
-//         return 1;
-//     }
+    // Read review data
+    FILE* file = fopen("reviews_cleaned.csv", "r");
+    if (!file) {
+        cout << "Failed to open review file." << endl;
+        return 1;
+    }
 
-//     // Read reviews
-//     FILE* file = fopen("reviews_cleaned.csv", "r");
-//     if (!file) {
-//         cout << "Failed to open review file." << endl;
-//         return 1;
-//     }
+    ReviewNode* reviewHead = nullptr;
+    char line[512];
+    fgets(line, sizeof(line), file); // skip header
 
-//     ReviewNode* reviewHead = nullptr;
-//     char line[512];
+    while (fgets(line, sizeof(line), file)) {
+        char* product_id = strtok(line, ",");
+        char* customer_id = strtok(NULL, ",");
+        char* rating_str = strtok(NULL, ",");
+        char* review = strtok(NULL, "\n");
 
-//     fgets(line, sizeof(line), file); // skip header
+        if (product_id && customer_id && rating_str && review) {
+            int rating = atoi(rating_str);
+            ReviewNode* newNode = createReviewNode(product_id, customer_id, rating, review);
+            appendReviewNode(&reviewHead, newNode);
+        }
+    }
+    fclose(file);
 
-//     while (fgets(line, sizeof(line), file)) {
-//         char* product_id = strtok(line, ",");
-//         char* customer_id = strtok(NULL, ",");
-//         char* rating_str = strtok(NULL, ",");
-//         char* review = strtok(NULL, "\n");
+    // Filter invalid reviews based on transactions
+    filterReviews(&reviewHead, transactionHead);
 
-//         if (product_id && customer_id && rating_str && review) {
-//             int rating = atof(rating_str);
-//             ReviewNode* new_node = createReviewNode(product_id, customer_id, rating, review);
-//             appendReviewNode(&reviewHead, new_node);
-//         }
-//     }
+    // Extract 1-star reviews only
+    ReviewNode* oneStarHead = nullptr;
+    ReviewNode** tail = &oneStarHead;
+    for (ReviewNode* curr = reviewHead; curr; curr = curr->link) {
+        if (curr->rating == 1) {
+            ReviewNode* copy = createReviewNode(curr->product_id, curr->customer_id, curr->rating, curr->review);
+            *tail = copy;
+            tail = &((*tail)->link);
+        }
+    }
 
-//     fclose(file);
+    // Step 1: Sort 1-star reviews by review length using merge sort
+    oneStarHead = mergeSortByReviewLength(oneStarHead);
 
-//     // Filter reviews
-//     filterReviews(&reviewHead, transactionHead, true);
+    // Step 2: Display sorted 1-star reviews (optional)
+    cout << "\n=== Sorted 1-Star Reviews ===\n";
+    displayReviews(oneStarHead);
 
-//     // Display reviews
-//     cout << "\n=== Filtered Reviews ===\n" << endl;
-//     displayReviews(reviewHead);
-//     cout << "Total Valid Reviews: " << countReviews(reviewHead) << endl;
+    // Step 3: Count the number of 1-star reviews
+    int oneStarReviewCount = 0;
+    for (ReviewNode* curr = oneStarHead; curr != nullptr; curr = curr->link) {
+        oneStarReviewCount++;
+    }
 
-//     // Display word frequencies in 1-star reviews sorted by frequency
-//     displayWordFrequenciesInOneStarReviews(reviewHead);
+    // Step 4: Display the count of 1-star reviews
+    cout << "\nTotal number of 1-star reviews: " << oneStarReviewCount << endl;
 
-//     return 0;
-// }
+    // Step 5: Count word frequencies in 1-star reviews
+    unordered_map<string, int> wordFreq;
 
+    for (ReviewNode* current = oneStarHead; current != nullptr; current = current->link) {
+        stringstream ss(current->review);
+        string word;
+        while (ss >> word) {
+            word = cleanWord(word);  // Clean the word (remove punctuation, lowercase)
+            if (!word.empty()) wordFreq[word]++;
+        }
+    }
+
+    // Step 6: Store word frequencies in a multimap sorted by frequency (descending order)
+    multimap<int, string, greater<int>> sortedWords;
+
+    for (const auto& [word, count] : wordFreq) {
+        sortedWords.insert({count, word});
+    }
+
+    // Step 7: Display all frequent words in 1-star reviews
+    if (!sortedWords.empty()) {
+        cout << "\nWord Frequencies in 1-Star Reviews (sorted by frequency):\n";
+        for (const auto& [count, word] : sortedWords) {
+            cout << word << ": " << count << endl;
+        }
+    } else {
+        cout << "\nNo 1-star reviews found." << endl;
+    }
+
+    return 0;
+}
