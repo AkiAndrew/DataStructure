@@ -10,6 +10,7 @@
 #include <map>
 #include <cmath>
 #include <iomanip> 
+#include "linked_h_assignment.hpp"
 
 
 using namespace std;
@@ -17,26 +18,7 @@ using namespace chrono;
 
 // ---------------- Transaction Record & Linked List ----------------
 
-struct Record {
-    string customerID;
-    string product;
-    string category;
-    double price;
-    string date;
-    string paymentMethod;
 
-    int dateToInt() const {
-        int month, day, year;
-        sscanf(date.c_str(), "%d/%d/%d", &day, &month, &year);
-        return year * 10000 + month * 100 + day;
-    }
-};
-
-struct TransactionNode {
-    Record data;
-    TransactionNode* next;
-    TransactionNode(Record record) : data(record), next(nullptr) {}
-};
 
 TransactionNode* createTransactionNode(const Record& record) {
     return new TransactionNode(record);
@@ -433,13 +415,7 @@ void displayTransactions(TransactionNode* head) {
 
 // ---------------- Review List ----------------
 
-struct ReviewNode {
-    string product_id;
-    string customer_id;
-    int rating;
-    string review;
-    ReviewNode* link;
-};
+
 
 ReviewNode* createReviewNode(const string& product_id, const string& customer_id, int rating, const string& review) {
     auto node = new ReviewNode{product_id, customer_id, rating, review, nullptr};
