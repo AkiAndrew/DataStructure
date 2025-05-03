@@ -8,39 +8,11 @@
 #include <iomanip>
 #include <algorithm>
 #include <chrono>
+#include "array_h_assignment.hpp"
+
 
 using namespace std;
 using namespace chrono;
-
-struct Record {
-    string customerID;
-    string product;
-    string category;
-    double price;
-    string date;
-    string paymentMethod;
-
-    int dateToInt() const {
-        int day, month, year;
-        sscanf(date.c_str(), "%d/%d/%d", &day, &month, &year);
-        return year * 10000 + month * 100 + day;
-    }
-};
-
-struct Review {
-    string product_id;
-    string customer_id;
-    int rating;
-    string review;
-};
-
-
-// Sorting Modes
-enum SortMode {
-    BY_DATE,
-    BY_CATEGORY,
-    BY_PRICE
-};
 
 bool compareRecords(const Record& a, const Record& b, SortMode mode) {
     switch (mode) {
@@ -374,12 +346,12 @@ void mergeSortR(Review* arr, int left, int right) {
 
 void displayTransactions(Record* arr, int size) {
     for (int i = 0; i < size; ++i) {
-        cout << "Customer ID: " << arr[i].customerID << "\n";
-        cout << "Product: " << arr[i].product << "\n";
-        cout << "Category: " << arr[i].category << "\n";
-        cout << "Price: $" << arr[i].price << "\n";
-        cout << "Date: " << arr[i].date << "\n";
-        cout << "Payment Method: " << arr[i].paymentMethod << "\n\n";
+        cout << arr[i].customerID << ",";
+        cout << arr[i].product << ",";
+        cout << arr[i].category << ",";
+        cout << arr[i].price <<  ",";
+        cout << arr[i].date <<  ",";
+        cout << arr[i].paymentMethod << "\n";
     }
 }
 
@@ -437,63 +409,63 @@ void analyzeOneStarReviews(Review* reviews, int count) {
 }
 
 
-// // Q1 FULL
-// int main() {
-//     // Read the transaction data from the CSV file
-//     Record* transactions;
-//     int transactionCount = readTransactionCSV("transactions_cleaned.csv", transactions);
-//     if (transactionCount == 0) {
-//         cerr << "Failed to load transaction data." << endl;
-//         return 1;
-//     }
+// Q1 FULL
+int main() {
+    // Read the transaction data from the CSV file
+    Record* transactions;
+    int transactionCount = readTransactionCSV("transactions_cleaned.csv", transactions);
+    if (transactionCount == 0) {
+        cerr << "Failed to load transaction data." << endl;
+        return 1;
+    }
 
-//     // === SORT METHOD ===
-//     mergeSort(transactions, 0, transactionCount - 1, BY_DATE);
+    // === SORT METHOD ===
+    mergeSort(transactions, 0, transactionCount - 1, BY_DATE);
 
-//     // === SEARCH TARGET INPUT ===
-//     string targetDate;
-//     cout << "Enter date to search (format DD/MM/YYYY): ";
-//     getline(cin, targetDate);
+    // === SEARCH TARGET INPUT ===
+    string targetDate;
+    cout << "Enter date to search (format DD/MM/YYYY): ";
+    getline(cin, targetDate);
 
-//     auto start = high_resolution_clock::now();
+    auto start = high_resolution_clock::now();
 
-//     // === SEARCH METHOD ===
-//     // int index = binarySearch(transactions, transactionCount, targetDate, BY_DATE);
-//     int index = jumpSearch(transactions, transactionCount, targetDate);
-//     // int index = interpolationSearch(transactions, transactionCount, targetDate);
-//     // int index = linearSearch(transactions, transactionCount, targetDate); 
+    // === SEARCH METHOD ===
+    // int index = binarySearch(transactions, transactionCount, targetDate, BY_DATE);
+    int index = jumpSearch(transactions, transactionCount, targetDate);
+    // int index = interpolationSearch(transactions, transactionCount, targetDate);
+    // int index = linearSearch(transactions, transactionCount, targetDate); 
 
-//     if (index != -1) {
-//         // Expand to find all matching transactions on the same date
-//         int left = index - 1;
-//         while (left >= 0 && transactions[left].date == targetDate) --left;
+    if (index != -1) {
+        // Expand to find all matching transactions on the same date
+        int left = index - 1;
+        while (left >= 0 && transactions[left].date == targetDate) --left;
 
-//         int right = index + 1;
-//         while (right < transactionCount && transactions[right].date == targetDate) ++right;
+        int right = index + 1;
+        while (right < transactionCount && transactions[right].date == targetDate) ++right;
 
-//         int totalFound = right - (left + 1);
+        int totalFound = right - (left + 1);
 
-//         for (int i = left + 1; i < right; ++i) {
-//             cout << "Customer ID: " << transactions[i].customerID << "\n";
-//             cout << "Product: " << transactions[i].product << "\n";
-//             cout << "Category: " << transactions[i].category << "\n";
-//             cout << "Price: $" << transactions[i].price << "\n";
-//             cout << "Date: " << transactions[i].date << "\n";
-//             cout << "Payment Method: " << transactions[i].paymentMethod << "\n\n";
-//         }
+        for (int i = left + 1; i < right; ++i) {
+            cout << "Customer ID: " << transactions[i].customerID <<  ",";
+            cout << "Product: " << transactions[i].product <<  ",";
+            cout << "Category: " << transactions[i].category <<  ",";
+            cout << "Price: $" << transactions[i].price <<  ",";
+            cout << "Date: " << transactions[i].date <<  ",";
+            cout << "Payment Method: " << transactions[i].paymentMethod << "\n";
+        }
 
-//         cout << "\nTransactions found on " << targetDate << ": " << totalFound << "\n";
+        cout << "\nTransactions found on " << targetDate << ": " << totalFound << "\n";
 
-//     } else {
-//         cout << "No transaction found on that date.\n";
-//     }
+    } else {
+        cout << "No transaction found on that date.\n";
+    }
 
-//     auto end = high_resolution_clock::now();
-//     cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
+    auto end = high_resolution_clock::now();
+    cout << "\nSearch Time: " << duration_cast<milliseconds>(end - start).count() << " ms\n";
 
-//     delete[] transactions;
-//     return 0;
-// }
+    delete[] transactions;
+    return 0;
+}
 
 
 
@@ -555,47 +527,47 @@ void analyzeOneStarReviews(Review* reviews, int count) {
 
 
 
-// Q3
-int main() {
-    Record* transactions;
-    int transactionCount = readTransactionCSV("transactions_cleaned.csv", transactions);
-    if (transactionCount == 0) return 1;
+// // Q3
+// int main() {
+//     Record* transactions;
+//     int transactionCount = readTransactionCSV("transactions_cleaned.csv", transactions);
+//     if (transactionCount == 0) return 1;
 
-    Review* reviews;
-    int reviewCount = readReviewCSV("reviews_cleaned.csv", reviews);
-    if (reviewCount == 0) return 1;
+//     Review* reviews;
+//     int reviewCount = readReviewCSV("reviews_cleaned.csv", reviews);
+//     if (reviewCount == 0) return 1;
 
-    // Extract and sort 1-star reviews by review text
-    Review* oneStarReviews = new Review[reviewCount];
-    int oneStarCount = 0;
-    for (int i = 0; i < reviewCount; ++i) {
-        if (reviews[i].rating == 1) {
-            oneStarReviews[oneStarCount++] = reviews[i];
-        }
-    }
+//     // Extract and sort 1-star reviews by review text
+//     Review* oneStarReviews = new Review[reviewCount];
+//     int oneStarCount = 0;
+//     for (int i = 0; i < reviewCount; ++i) {
+//         if (reviews[i].rating == 1) {
+//             oneStarReviews[oneStarCount++] = reviews[i];
+//         }
+//     }
 
-    if (oneStarCount > 0) {
-        mergeSortR(oneStarReviews, 0, oneStarCount - 1);
+//     if (oneStarCount > 0) {
+//         mergeSortR(oneStarReviews, 0, oneStarCount - 1);
 
-        cout << "\n=== Sorted 1-Star Reviews (by review text) ===\n";
-        for (int i = 0; i < oneStarCount; ++i) {
-            cout << "Customer ID: " << oneStarReviews[i].customer_id << "\n";
-            cout << "Review: " << oneStarReviews[i].review << "\n\n";
-        }
-    } else {
-        cout << "\nNo 1-star reviews to sort.\n";
-    }
+//         cout << "\n=== Sorted 1-Star Reviews (by review text) ===\n";
+//         for (int i = 0; i < oneStarCount; ++i) {
+//             cout << "Customer ID: " << oneStarReviews[i].customer_id << "\n";
+//             cout << "Review: " << oneStarReviews[i].review << "\n\n";
+//         }
+//     } else {
+//         cout << "\nNo 1-star reviews to sort.\n";
+//     }
 
-    cout << "Total Reviews (Raw): " << reviewCount << endl;
+//     cout << "Total Reviews (Raw): " << reviewCount << endl;
 
-    reviewCount = filterReviews(reviews, reviewCount, transactions, transactionCount);
-    cout << "Total Reviews (Filtered): " << reviewCount << endl;
+//     reviewCount = filterReviews(reviews, reviewCount, transactions, transactionCount);
+//     cout << "Total Reviews (Filtered): " << reviewCount << endl;
 
-    analyzeOneStarReviews(reviews, reviewCount);
+//     analyzeOneStarReviews(reviews, reviewCount);
 
-    delete[] transactions;
-    delete[] reviews;
-    delete[] oneStarReviews;
+//     delete[] transactions;
+//     delete[] reviews;
+//     delete[] oneStarReviews;
 
-    return 0;
-}
+//     return 0;
+// }
